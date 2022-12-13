@@ -1,5 +1,8 @@
 import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
+import isEmail from "validator/lib/isEmail";
 
 const required = (value) => {
     if (!value) {
@@ -10,6 +13,17 @@ const required = (value) => {
       );
     }
   };
+
+const validEmail = (value) => {
+  if (!isEmail(value)) {
+    return ( 
+      <div className="alert alert-danger" role="alert">
+        This is not a valid Email
+      </div>
+     );
+  }
+}
+   
 
 const Register = () => {
 
@@ -69,19 +83,19 @@ const Register = () => {
                 <Form onSubmit={SubmitHandler}>
                     <div className="mb-3">
                         <label htmlFor="username">Username</label>
-                        <input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={username}
-                        onChange = {UsernameChangeHandler}
-                        validations={[required]}
+                        <Input
+                            type="text"
+                            className="form-control"
+                            name="username"
+                            value={username}
+                            onChange = {UsernameChangeHandler}
+                            validations={[required]}
                         />
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="username">First Name</label>
-                        <input
+                        <Input
                         type="text"
                         className="form-control"
                         name="username"
@@ -93,7 +107,7 @@ const Register = () => {
 
                     <div className="mb-3">
                         <label htmlFor="username">Last Name</label>
-                        <input
+                        <Input
                         type="text"
                         className="form-control"
                         name="username"
@@ -105,7 +119,7 @@ const Register = () => {
 
                     <div className="mb-3">
                         <label htmlFor="username">Address</label>
-                        <input
+                        <Input
                         type="text"
                         className="form-control"
                         name="address"
@@ -123,7 +137,7 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange = {EmailChangeHandler}
-                        validations={[required]}
+                        validations={[required, validEmail]}
                         />
                     </div>
 
@@ -167,6 +181,12 @@ const Register = () => {
                                 Show Password
                             </button>
                         </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                        <Button variant="dark">
+                            Create Account
+                        </Button>
                     </div>
 
                 </Form>
