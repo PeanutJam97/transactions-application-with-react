@@ -6,6 +6,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Profile from '../pages/Profile';
 import Home from '../pages/Home';
+import ChangePassword from '../pages/ChangePassword';
+import ChangeUsername from '../pages/ChangeUsername';
 
 
 const NavBar = () => {
@@ -20,7 +22,7 @@ const NavBar = () => {
                         <Nav.Link href="/register">Create Account</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/profile">Change Password</Nav.Link>
+                        <Nav.Link href="/profile">Change Email or Password</Nav.Link>
                         <Nav.Link href="/login">
                         Log Out
                         </Nav.Link>
@@ -37,6 +39,8 @@ const NavBar = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/ChangePassword" element={<ChangePassword />} />
+                    <Route path="/ChangeUsername" element={<ChangeUsername />} />
                     <Route path="/" element={<Home />}>
                     </Route>
                 </Routes>

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Button } from "react-bootstrap";
 import CheckButton from "react-validation/build/button";
-import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../Store/auth-context";
 
 const required = (value) => {
     if (!value) {
@@ -22,10 +23,15 @@ const required = (value) => {
 const Login = () => {
 
   const form = useRef();
+  const checkBtn = useRef()
+  const navigate = useNavigate();
 
   const [email, SetEmail] = useState('');
   const [password, SetPassword] = useState('');
   const [showPassword, SetShowPassword] = useState(false)
+  const [isloading, setisLoading] = useState(false)
+
+  const authCtx = useContext(AuthContext);
 
   
 
@@ -46,7 +52,44 @@ const Login = () => {
 
     form.current.validateAll();
 
-  }
+    setisLoading(true);
+    if (checkBtn.current.context._errors.length === 0) {
+      fetch(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB2TB_WX_AFkzineYvu-rD0o0cdwYD78h8',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                returnSecureToken: true
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+      ).then((res) => {
+          setisLoading(false);
+          if (res.ok) {
+              return res.json();
+          } else {
+            return res.json().then((data) => {
+              let errorMessage = 'Authentication failed!';
+              // if (data && data.error && data.error.message) {
+              //     errorMessage = data.error.message;
+              // }
+              throw new Error(errorMessage);
+            });
+          }
+      }).then(data => {
+          authCtx.login(data.idToken);
+          navigate("/profile");
+      })
+        .catch((err) => {
+          alert(err.message);
+        });
+      }
+  };
+
 
   return ( 
     <div className="form-container">
@@ -87,11 +130,16 @@ const Login = () => {
             {/* <button className="btn btn-dark btn-block">
               <span>Login</span>
             </button> */}
-            <Button variant="dark">
-              Login
-            </Button>
+              <Button type="submit" variant="danger">
+                {isloading && (
+                <span className="spinner-border spinner-border-sm"></span>
+                )}
+                {!isloading && (
+                <span>Login</span>
+                )}
+              </Button>
             </div>
-          <CheckButton style={{display: "none"}} />
+          <CheckButton style={{display: "none"}} ref={checkBtn}/>
           <p style={{ textAlign: "center" }}>
             <a href="/register">Click here to create account</a>
           </p>
