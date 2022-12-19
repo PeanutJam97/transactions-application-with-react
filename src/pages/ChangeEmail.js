@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import AuthContext from "../Store/auth-context";
 import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import isEmail from "validator/lib/isEmail";
 
 
 const required = (value) => {
@@ -15,6 +16,26 @@ const required = (value) => {
       );
     }
   };
+
+const validEmail = (value) => {
+  if (!isEmail(value)) {
+    return ( 
+      <div className="alert alert-danger" role="alert">
+        This is not a valid Email
+      </div>
+     );
+  }
+}
+
+const validConfirmEmail = (value) => {
+    if (!isEmail(value)) {
+      return ( 
+        <div className="alert alert-danger" role="alert">
+          This is not a valid Email
+        </div>
+       );
+    }
+  }
 
 
 const ChangeEmail = () => {
@@ -102,7 +123,7 @@ const ChangeEmail = () => {
                             name="email"
                             value={email}
                             onChange={EmailChangeHandler}
-                            validations={[required]}
+                            validations={[required, validEmail]}
                         />
                     </div>
                 </div>
@@ -115,7 +136,7 @@ const ChangeEmail = () => {
                             name="email"
                             value={confirmemail}
                             onChange={ConfirmEmailChangeHandler}
-                            validations={[required]}
+                            validations={[required, validConfirmEmail]}
                         />
                     </div>
                     
