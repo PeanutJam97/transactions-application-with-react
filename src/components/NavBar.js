@@ -37,9 +37,9 @@ const NavBar = () => {
                         {isLoggedIn && 
                         <Nav.Link href="/profile">Change Email or Password</Nav.Link>
                         }
-                        <Nav.Link href="/login" onClick={logoutHandler}>
+                        {isLoggedIn && <Nav.Link href="/login" onClick={logoutHandler}>
                         Log Out
-                        </Nav.Link>
+                        </Nav.Link>}
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
