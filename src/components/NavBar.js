@@ -10,7 +10,7 @@ import Home from '../pages/Home';
 import ChangePassword from '../pages/ChangePassword';
 import ChangeEmail from '../pages/ChangeEmail';
 import AuthContext from '../Store/auth-context';
-
+import Accounts from '../pages/Accounts';
 
 const NavBar = () => {
     const authCtx = useContext(AuthContext);
@@ -52,9 +52,14 @@ const NavBar = () => {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/ChangePassword" element={<ChangePassword />} />
-                    <Route path="/ChangeEmail" element={<ChangeEmail />} />
+                    {isLoggedIn && <Route path="/profile" element={<Profile />} />}
+                    {isLoggedIn && <Route path="/ChangePassword" element={<ChangePassword />} />}
+                    {isLoggedIn && <Route path="/ChangeEmail" element={<ChangeEmail />} />}
+                    {isLoggedIn && <Route path="/accounts" element={<Accounts />} />}
+                    {!isLoggedIn && <Route path="/profile" element={<Login />} />}
+                    {!isLoggedIn && <Route path="/ChangePassword" element={<Login />} />}
+                    {!isLoggedIn && <Route path="/ChangeEmail" element={<Login />} />}
+                    {!isLoggedIn && <Route path="/accounts" element={<Login />} />}
                     <Route path="/" element={<Home />}>
                     </Route>
                 </Routes>

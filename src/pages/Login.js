@@ -82,7 +82,7 @@ const Login = () => {
           }
       }).then(data => {
           authCtx.login(data.idToken);
-          navigate("/profile");
+          navigate("/accounts");
       })
         .catch((err) => {
           alert(err.message);
