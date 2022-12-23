@@ -11,6 +11,11 @@ import ChangePassword from '../pages/ChangePassword';
 import ChangeEmail from '../pages/ChangeEmail';
 import AuthContext from '../Store/auth-context';
 import Accounts from '../pages/Accounts';
+import User1 from '../Routes/User1';
+import User2 from '../Routes/User2';
+import User3 from '../Routes/User3';
+import User4 from '../Routes/User4';
+import User5 from '../Routes/User5';
 
 const NavBar = () => {
     const authCtx = useContext(AuthContext);
@@ -20,6 +25,7 @@ const NavBar = () => {
     };
 
     const isLoggedIn = authCtx.isLoggedIn;
+
 
     return ( 
         <div>
@@ -55,13 +61,20 @@ const NavBar = () => {
                     {isLoggedIn && <Route path="/profile" element={<Profile />} />}
                     {isLoggedIn && <Route path="/ChangePassword" element={<ChangePassword />} />}
                     {isLoggedIn && <Route path="/ChangeEmail" element={<ChangeEmail />} />}
-                    {isLoggedIn && <Route path="/accounts" element={<Accounts />} />}
+                    {isLoggedIn && 
+                    <Route path="/" element={<Accounts />}>
+                        <Route path="/User1" element={<User1 />} />
+                        <Route path="/User2" element={<User2 />} />
+                        <Route path="/User3" element={<User3  />} />
+                        <Route path="/User4" element={<User4 />} />
+                        <Route path="/User5" element={<User5  />} />
+                    </Route>
+                    }
                     {!isLoggedIn && <Route path="/profile" element={<Login />} />}
                     {!isLoggedIn && <Route path="/ChangePassword" element={<Login />} />}
                     {!isLoggedIn && <Route path="/ChangeEmail" element={<Login />} />}
                     {!isLoggedIn && <Route path="/accounts" element={<Login />} />}
-                    <Route path="/" element={<Home />}>
-                    </Route>
+                    {!isLoggedIn && <Route path="/" element={<Login />} />}
                 </Routes>
             </div>
         </div>
