@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Modal, ModalBody, Button } from "react-bootstrap";
 import { InputGroup } from "react-bootstrap";
 import { useState } from "react";
+import {v4 as uuidV4} from "uuid";
 
 
 const AddTransactionsModal = ({show, handleClose, addtransactions, accounts}) => {
@@ -18,6 +19,7 @@ const AddTransactionsModal = ({show, handleClose, addtransactions, accounts}) =>
         console.log(accid)
 
         const NewTransactions = {
+            id: uuidV4(),
             AccountID: accid,
             Comment: Comment,
             Date: Date,

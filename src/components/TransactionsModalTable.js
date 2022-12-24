@@ -35,8 +35,8 @@ const TransactionsModalTable = ({show, handleClose, accounts}) => {
         ))
     };
 
-    const DeleteTransactionHandler = (Date) => {
-        const PostDeleteList = updatedtransactions.filter(transaction => transaction.Date !== Date)
+    const DeleteTransactionHandler = (id) => {
+        const PostDeleteList = updatedtransactions.filter(transaction => transaction.id !== id)
         SetUpdatedTransactions(PostDeleteList)
     };
     // }  onClick={DeleteTransactionHandler(transaction.AccountID)}
@@ -76,7 +76,7 @@ const TransactionsModalTable = ({show, handleClose, accounts}) => {
                                             <td>{formatDistanceToNow(new Date(transaction.Date), {addSuffix: true,})}</td>
                                             <td>$ {transaction.TransactionAmount}</td>
                                             <td>{transaction.Comment}</td>
-                                            <td><Button variant="dark" onClick={() => DeleteTransactionHandler(transaction.Date)}>Delete</Button></td>
+                                            <td><Button variant="dark" onClick={() => DeleteTransactionHandler(transaction.id)}>Delete</Button></td>
                                         </tr>
                                     );
                                 })}      
