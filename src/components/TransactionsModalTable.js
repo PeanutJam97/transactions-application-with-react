@@ -5,6 +5,7 @@ import { dummyData } from '../data/data';
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import AddTransactionsModal from './AddTransactionsModal';
 import { useState } from "react";
+import useLocalStorage from '../Hooks/useLocalStorage';
 
 const TransactionsModalTable = ({show, handleClose, accounts}) => {
 
@@ -25,7 +26,7 @@ const TransactionsModalTable = ({show, handleClose, accounts}) => {
 
     console.log(transactions)
 
-    const [updatedtransactions, SetUpdatedTransactions] = useState(transactions)
+    const [updatedtransactions, SetUpdatedTransactions] = useLocalStorage(`${accounts[0].UserID}`, transactions)
 
     console.log(updatedtransactions)
 
